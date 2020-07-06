@@ -219,7 +219,7 @@ export default {
       this.$refs.scroll.scrollTo(0,-this.getScrollY[index])
     },
     addToCart(){
-      console.log('....')
+      // console.log('....')
       // 1获取购物车需要展示的信息
       this.product.image = this.topImages[0]
       this.product.title = this.goods.title
