@@ -11,7 +11,13 @@
       </div>
     </nav-bar>
 
+   
     <scroll class="content" ref="scroll" @scroll="scrollShow" :probeType="3">
+      <div>
+        <ul v-for="item in $store.state.cartList">
+          <li>{{item}}</li>
+        </ul>
+      </div>
       <swiper class="detail-swiper">
         <swiper-item v-for="item in topImages">
           <img :src="item" alt="" >
@@ -60,6 +66,7 @@ import {getDetailMultiData,getRecommentMultiData, Goods, Shop, GoodsParam} from 
 import {itemListenerMixin, backTopMixin} from 'common/mixin';
 import {debounce} from 'common/utils'
 
+
 export default {
   name: 'Detail',
   components: { 
@@ -101,7 +108,10 @@ export default {
       
       getScrollY:[],
       ScrollYS:null,
-      currentIndex:0
+      currentIndex:0,
+      product:{}
+
+      
     }
   },
   created() {
@@ -211,15 +221,16 @@ export default {
     addToCart(){
       console.log('....')
       // 1获取购物车需要展示的信息
-      const product = {
-        image: this.topImages[0],
-        title: this.goods.title,
-        desc: this.goods.desc,
-        price: this.goods.realPrice,
-        iid: this.iid
-      }
+      this.product.image = this.topImages[0]
+      this.product.title = this.goods.title
+      this.product.desc =  this.goods.desc
+      this.product.price = this.goods.realPrice
+      this.product.iid = this.iid
+      this.count = 0
+      
        // 2将信息保存到store对象中
-      this.$store.commit('addCart', product)
+      this.$store.commit('addCart', this.product)
+      // console.log(this.$store.state.cartList)
     }
 }
 }

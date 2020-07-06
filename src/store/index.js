@@ -13,7 +13,22 @@ const store = new Vuex.Store(
      },
      mutations: {
       addCart(state, payload){
-        state.cartList.push(payload)
+        // state.cartList.push(payload)
+        let oldProduct = null
+        // for (const item of state.cartList) {
+        //   if (item.iid === payload.iid) {
+        //     oldProduct = item
+        //   }
+        // }
+        oldProduct = state.cartList.find(item => {
+          return item.iid === payload.iid
+        })
+        if (oldProduct) {
+          payload.count += 1
+        }else{
+          payload.count = 1
+          state.cartList.push(payload)
+        }
       }
      }
    }
