@@ -229,7 +229,9 @@ export default {
       this.count = 0
       
        // 2将信息保存到store对象中
-      this.$store.commit('addCart', this.product)
+      // this.$store.commit('addCart', this.product) mutation调用
+      //actions
+      this.$store.dispatch('addCart',this.product)
       // console.log(this.$store.state.cartList)
     }
 }
