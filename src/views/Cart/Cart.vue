@@ -8,6 +8,7 @@
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
+import { mapGetters } from 'vuex'
 
 export default {
   name:'Cart',
@@ -20,9 +21,16 @@ export default {
     }
   },
   computed:{
-    cartLen(){
-      return this.$store.state.cartList.length
-    }
+    // cartLen(){
+    //   return this.$store.getters.cartLen
+    // }
+    ...mapGetters([
+      'cartLen'
+    ])
+    //mapGetters起别名
+    // ...mapGetters({
+    //   len: 'cartLen'
+    // })
   }
 }
 </script>
