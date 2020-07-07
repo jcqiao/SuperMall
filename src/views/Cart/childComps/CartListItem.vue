@@ -29,7 +29,8 @@ export default {
   data(){
     return {
       ccheck:false,
-      totalPrice:0
+      totalPrice:0,
+      totalLen:0
      }
   },
    computed: {
@@ -58,7 +59,10 @@ export default {
         }, 0).toFixed(2)
         console.log(this.totalPrice)
 
-        this.$bus.$emit('compute', this.totalPrice)
+      this.totalLen = this.cartList.filter(item => item.check).length
+      
+      this.$bus.$emit('compute', this.totalPrice)
+      this.$bus.$emit('toshop', this.totalLen)
     }
   }
 }

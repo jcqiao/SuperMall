@@ -8,6 +8,9 @@
     <div class="total-price">
       合计：{{totalPrice}}
     </div>
+    <div class="toshop">
+      去结算：{{totalLen}}
+    </div>
   </div>
 </template>
 
@@ -21,12 +24,17 @@ export default {
   },
   data(){
     return {
-      totalPrice:0
+      totalPrice:0,
+      totalLen:0
     }
   },
   mounted() {
     this.$bus.$on('compute',totalPrice => {
       this.totalPrice = totalPrice
+    })
+
+    this.$bus.$on('toshop', totalLen => {
+      this.totalLen = totalLen
     })
   }
   
@@ -39,13 +47,13 @@ export default {
   .bottom-bar{
     height: 40px;
     background-color: #eee;
-    position: absolute;
+    position: fixed;
     bottom: 49px;
     right: 0;
     left: 0;
     display: flex;
   }
-  .check-all, .total-price{
+  .check-all, .total-price, .toshop{
     /* height: 40px; */
     padding-left: 5px;
     line-height: 40px;
@@ -54,7 +62,15 @@ export default {
     display: inline;
     margin-right: 5px;
   }
-  .total-price{
+  .total-price {
     display: inline;
+  }
+  .toshop{
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    position: absolute;
+    right: 10px;
+    background-color: red;
   }
 </style>
