@@ -30,7 +30,8 @@ export default {
     return {
       ccheck:false,
       totalPrice:0,
-      totalLen:0
+      totalLen:0,
+      check:false
      }
   },
    computed: {
@@ -58,11 +59,22 @@ export default {
           return preValue + item.count * item.price
         }, 0).toFixed(2)
         console.log(this.totalPrice)
-
+      //去结算数目
       this.totalLen = this.cartList.filter(item => item.check).length
+      //是否全选
+      let len = this.cartList.filter(item => {
+        return item.check == false
+      }).length
+      if (len === 0) {
+        this.check = true
+      } else{
+        this.check = false
+      }
+      // console.log(
       
       this.$bus.$emit('compute', this.totalPrice)
       this.$bus.$emit('toshop', this.totalLen)
+      this.$bus.$emit('ischeck', this.check)
     }
   }
 }

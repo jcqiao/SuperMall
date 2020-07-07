@@ -1,7 +1,7 @@
 <template>
   <div class="bottom-bar">
-    <div class="check-all">
-      <check-button class="check-button"></check-button>
+    <div class="check-all" >
+      <check-button class="check-button" :class="{'checkAll':checkAll}"></check-button>
       <span>全选</span>
     </div>
 
@@ -16,6 +16,7 @@
 
 <script>
 import CheckButton from './CheckButton'
+import {mapGetters} from 'vuex'
 
 export default {
   name:'CartBottomBar',
@@ -25,7 +26,8 @@ export default {
   data(){
     return {
       totalPrice:0,
-      totalLen:0
+      totalLen:0,
+      checkAll:false
     }
   },
   mounted() {
@@ -36,6 +38,23 @@ export default {
     this.$bus.$on('toshop', totalLen => {
       this.totalLen = totalLen
     })
+
+    this.$bus.$on('ischeck', check => {
+      this.checkAll = check
+    })
+  },
+  computed:{
+    ...mapGetters([
+      'cartList'
+    ]),
+    // isCheckAll(){
+    //   let len = this.cartList.filter(item => {
+    //     return item.check == false
+    //   }).length
+    //   if (len === 0) {
+    //     this.checkAll = true
+    //   }
+    // }
   }
   
 		
@@ -71,6 +90,9 @@ export default {
     text-align: center;
     position: absolute;
     right: 10px;
+    background-color: red;
+  }
+  .checkAll{
     background-color: red;
   }
 </style>
