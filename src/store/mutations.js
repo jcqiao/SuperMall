@@ -4,6 +4,7 @@ export default {
   },
   add(state,payload){
     payload.count = 1
+    payload.check = false
     state.cartList.push(payload)
   }
   //mutations 唯一目的就是修改state中的状态
