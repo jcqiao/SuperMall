@@ -3,6 +3,7 @@
     <div class="item-selector">
       <CheckButton :isCheck="ccheck" @click.native="checkClick"></CheckButton>
     </div>
+    {{ccheck}}
     <div class="item-img">
       <img :src="product.image" alt="商品图片">
     </div>
@@ -48,6 +49,11 @@ export default {
       }
     }
   },
+  mounted(){
+    this.$bus.$on('hh', checkAll => {
+      this.ccheck = checkAll
+    })
+  },
   methods:{
     checkClick(){
       this.product.check = !this.product.check
@@ -75,7 +81,8 @@ export default {
       this.$bus.$emit('compute', this.totalPrice)
       this.$bus.$emit('toshop', this.totalLen)
       this.$bus.$emit('ischeck', this.check)
-    }
+    },
+  
   }
 }
 </script>

@@ -1,7 +1,8 @@
 <template>
   <div class="bottom-bar">
     <div class="check-all" >
-      <check-button class="check-button" :class="{'checkAll':checkAll}"></check-button>
+      <check-button class="check-button" :class="{'checkAll':checkAll}"
+      @click.native="checkAllClick"></check-button>
       <span>全选</span>
     </div>
 
@@ -47,14 +48,22 @@ export default {
     ...mapGetters([
       'cartList'
     ]),
-    // isCheckAll(){
-    //   let len = this.cartList.filter(item => {
-    //     return item.check == false
-    //   }).length
-    //   if (len === 0) {
-    //     this.checkAll = true
-    //   }
-    // }
+    
+  },
+  methods:{
+    checkAllClick(){
+      this.checkAll = !this.checkAll
+      // console.log(this.checkAll) 
+      if (this.checkAll) {
+        this.cartList.forEach(item => {
+          item.check = true
+       });
+      } else {
+         this.cartList.forEach(item => {
+          item.check = false
+       });
+      }
+    }
   }
   
 		

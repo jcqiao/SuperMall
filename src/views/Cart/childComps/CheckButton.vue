@@ -1,5 +1,5 @@
 <template>
-  <div class="check-button" :class="{'check':isCheck}">
+  <div class="check-button" :class="{'check':isCheck}">{{isCheck}}
     <img src="~assets/img/cart/tick.svg" alt="">
   </div>
 
@@ -14,8 +14,10 @@ export default {
       default: false
     }
   },
-  activated(){
-    console.log(this.isCheck)
+  computed:{
+    text(){
+      console.log(this.isCheck)
+    }
   }
 }
 </script>
