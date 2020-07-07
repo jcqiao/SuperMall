@@ -7,13 +7,12 @@
 <script>
 import {mapGetters} from 'vuex'
 import CartListItem from './CartListItem'
-import CartBottomBar from './CartBottomBar'
 
 export default {
   name:'CartList',
   components: {
     CartListItem,
-    CartBottomBar
+    
   },
   created() {
     console.log(this.$store.state.cartList)

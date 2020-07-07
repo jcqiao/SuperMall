@@ -19,6 +19,8 @@
 
 <script>
 import CheckButton from './CheckButton'
+import {mapGetters} from 'vuex'
+
 export default {
   name: 'CartListItem',
   components:{
@@ -26,9 +28,16 @@ export default {
   },
   data(){
     return {
-      ccheck:false
+      ccheck:false,
+      totalPrice:0
      }
   },
+   computed: {
+      ...mapGetters([
+      	'cartList',
+        'cartLength'
+      ]),
+   },
   props: {
     product:{
       type: Object,
@@ -41,6 +50,15 @@ export default {
     checkClick(){
       this.product.check = !this.product.check
       this.ccheck = this.product.check
+
+      this.totalPrice = this.cartList.filter(item => {
+          return item.check
+        }).reduce((preValue, item) => {
+          return preValue + item.count * item.price
+        }, 0).toFixed(2)
+        console.log(this.totalPrice)
+
+        this.$bus.$emit('compute', this.totalPrice)
     }
   }
 }
